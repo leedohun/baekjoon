@@ -2,51 +2,49 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <cmath>
-#include <string>
-#include <stack>
-#include <queue>
-#include <cstring>
-#include <set>
 
 using namespace std;
 
 typedef long long ll;
 
-int map[11][11] = { 0, };
-vector <int> v[11][11];
-int dx[8] = { -1,-1,0,1,1,1,0,-1 }; 
+int map[11][11] = { 0, }; //양분
+
+vector <int> v[11][11]; //나무
+
+int dx[8] = { -1,-1,0,1,1,1,0,-1 }; //상 하 좌 우 대각선
 int dy[8] = { 0,1,1,1,0,-1,-1,-1 };
 
 int main() {
 	ios::sync_with_stdio(false); cin.tie(NULL);
 
 	int N, M, K; cin >> N >> M >> K;
-	int save[11][11] = { 0, };
+	int add_food[11][11] = { 0, };
 
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
-			map[i][j] = 5;
+			map[i][j] = 5; //초기 땅의 양분
 		}
 	}
 
 	for (int i = 0; i < N; i++)
 		for (int j = 0; j < N; j++) {
-			cin >> save[i][j];
+			cin >> add_food[i][j]; //S2D2가 겨울에 땅을 돌아다니면서 양분 추가
 		}
 
 	for (int i = 0; i < M; i++) {
 		int x, y, z; cin >> x >> y >> z;
-		v[x- 1][y - 1].push_back(z);
+		v[x- 1][y - 1].push_back(z); //나무의 위치와 나이를 저장
 	}
 
 	while (K--) {
+		//봄
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				sort(v[i][j].begin(), v[i][j].end());
 			}
 		}
-
+		
+		//여름
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				for (int k = 0; k < v[i][j].size(); k++) {
@@ -68,7 +66,8 @@ int main() {
 				}
 			}
 		}
-
+		
+		//가을
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				for (int k = 0; k < v[i][j].size(); k++) {
@@ -84,10 +83,11 @@ int main() {
 				}
 			}
 		}
-
+		
+		//겨울
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
-				map[i][j] += save[i][j];
+				map[i][j] += add_food[i][j];
 			}
 		}
 	}
