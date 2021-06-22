@@ -7,8 +7,8 @@ using namespace std;
 int N, M;
 
 ll a[100005] = { 0, };
-ll minTree[100005] = { 0, }; //최소값 세그먼트 트리
-ll maxTree[100005] = { 0, }; //최댓값 세그먼트 트리
+ll minTree[500005] = { 0, }; //최소값 세그먼트 트리
+ll maxTree[500005] = { 0, }; //최댓값 세그먼트 트리
 
 ll minTree_init(int node, int start, int end) { //최소값 세그먼트 트리 생성
 	if (start == end) {
