@@ -10,18 +10,6 @@ typedef long long ll;
 const ll _INF = 1e18;
 const ll INF = 1e9;
 
-struct P {
-    int x; int y;
-};
-
-bool cmp(const P& a, const P& b) {
-    if (a.x < b.x) return true;
-    else if (a.x == b.x) {
-        if (a.y < b.y) return true;
-    }
-    return false;
-}
-
 void solved() {
     int t; cin >> t;
     
