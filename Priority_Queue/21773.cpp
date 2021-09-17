@@ -22,13 +22,6 @@ struct compare {
             a.y > b.y;
     }
 };
-bool cmp(const P& a, const P& b) {
-    if (a.x < b.x) return true;
-    else if (a.x == b.x) {
-        if (a.y < b.y) return true;
-    }
-    return false;
-}
 
 priority_queue <P, vector<P>, compare> pq;
 
