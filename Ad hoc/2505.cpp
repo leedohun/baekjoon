@@ -36,14 +36,6 @@ bool cmp(const P& a, const P& b) {
     return false;
 }
 
-string S;
-set <string> visit;
-
-int ans = 0;
-void bfs() {
-
-}
-
 void solved() {
     int N; cin >> N;
     vector <int> v(N);
