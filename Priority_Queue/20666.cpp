@@ -1,0 +1,86 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
+/*#include <iostream>
+#include <string>
+#include <queue>
+#include <set>*/
+
+#define rep(i, n) for(int i = 0; i < (n); i++)
+
+using namespace std;
+
+typedef long long ll;
+
+const ll _INF = 1e18;
+const ll INF = 1e9;
+const int mod = 1000000007;
+const int MOD = 998244353;
+const int MAX = 1000005;
+
+struct P {
+    ll x; ll y;
+};
+
+struct compare {
+    bool operator()(P& a, P& b) {
+        if (a.x != b.x)
+            return a.x > b.x;
+        return
+            a.y > b.y;
+    }
+};
+priority_queue <P, vector<P>, compare> pq;
+
+bool cmp(const P& a, const P& b) {
+    if (a.x < b.x) return true;
+    else if (a.x == b.x) {
+        if (a.y < b.y) return true;
+    }
+    return false;
+}
+
+vector <P> item[100005];
+
+void solved() {
+    int N, M; cin >> N >> M;
+    vector <ll> v(N + 1);
+    rep(i, N) cin >> v[i + 1];
+
+    int p; cin >> p;
+    for (int i = 0; i < p; i++) {
+        ll a, b, c; cin >> a >> b >> c;
+        item[a].push_back({ b, c });
+        v[b] += c;
+    }
+
+    for (int i = 1; i <= N; i++) {
+        pq.push({ v[i], i});
+    }
+    
+    ll ans = 0;
+    set <ll> s;
+    for (int i = 0; i < M; i++) {
+        while (s.find(pq.top().y) != s.end()) {
+            pq.pop();
+        }
+
+        ll x = pq.top().x, y = pq.top().y; pq.pop();
+        s.insert(y);
+
+        ans = max(ans, x);
+
+        for (int j = 0; j < item[y].size(); j++) {
+            v[item[y][j].x] -= item[y][j].y;
+            if (s.find(item[y][j].x) == s.end())
+                pq.push({ v[item[y][j].x], item[y][j].x });
+        }
+    }
+    cout << ans;
+}
+
+int main(int argc, char** argv) {
+    ios::sync_with_stdio(0); cin.tie(0);
+
+    solved();
+    return 0;
+}
